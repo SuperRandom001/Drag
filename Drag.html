@@ -9,7 +9,7 @@
 </head>
 <body>
 <div id="div"></div>
-/*面向过程*/
+<!--面向过程-->
   <script>
         window.onload=function(){
             var oDiv=document.getElementById('div');
@@ -31,7 +31,7 @@
     </script>
 
 
-/*面向对象*/
+<!--面向对象-->
 <script>
     window.onload =function () {
       new Drag('div');
@@ -69,7 +69,50 @@
 
 
 </script>
+    
+<!--es6 class 小试牛刀-->
+<script>
+    window.onload = function () {
+        new Drag('div');
+    };
 
+    class Drag {
+        constructor(id){
+            this.disX=0;
+            this.disY=0;
+            this.oDiv=document.getElementById(id);
+            const _this=this;//注意这里的this的指向问题
+            console.log(this);
+            this.oDiv.onmousedown=function(ev){
+                _this.mousedown(ev);
+            };
+        }
+
+        mousedown(ev){
+            const _this=this;//注意这里的this的指向问题
+            console.log(this);
+            this.disX=ev.clientX-this.oDiv.offsetLeft;
+            this.disY=ev.clientY-this.oDiv.offsetTop;
+            document.onmousemove=function(){
+                _this.mousemove();
+            };
+            document.onmouseup=function(){
+                _this.mouseup();
+            };
+            return false;
+        }
+        mousemove(){
+            var ev=ev||window.event;
+            this.oDiv.style.left=ev.clientX-this.disX+'px';
+            this.oDiv.style.top=ev.clientY-this.disY+'px';
+        }
+        mouseup(){
+            document.onmousemove=document.onmouseup=null;
+        }
+
+    }
+
+</script>
 
 </body>
 </html>
