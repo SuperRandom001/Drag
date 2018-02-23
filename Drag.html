@@ -42,8 +42,8 @@
         this.disY=0;
         this.oDiv=document.getElementById(id);
         const _this=this;//注意这里的this的指向问题
-        this.oDiv.onmousedown=function(){
-            _this.mousedown();
+        this.oDiv.onmousedown=function(ev){
+            _this.mousedown(ev);
         };
     };
     Drag.prototype.mousedown= function (ev){
